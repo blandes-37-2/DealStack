@@ -102,7 +102,7 @@ DealStack is an active, evolving project originally built around a real brokerag
 It is not intended to be a generic CRM framework or a Salesforce replacement.
 The focus is depth in a specific domain rather than breadth across industries.
 
-License
+##License
 
 TBD.
 This repository is currently shared for documentation, demonstration, and discussion purposes.

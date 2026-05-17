@@ -1,108 +1,55 @@
-#DealStack
+# DealStack
 
-DealStack is a purpose-built CRM for commercial real estate investment sales teams.
+A purpose-built CRM for commercial real estate investment sales teams. Built from scratch around how brokers actually work — not how generic sales software thinks they should.
 
-It is designed around how brokers actually work: tracking buildings, owners, relationships, pursuits, and deals in one system, without relying on generic sales CRM abstractions.
+## Why DealStack Exists
 
-This repository documents the core application and includes preview assets to illustrate functionality and design.
+Off-the-shelf CRMs treat buildings as accounts and deals as opportunities. That abstraction breaks down fast in CRE investment sales. DealStack was designed to fix that:
 
-#What DealStack Does
+- **Buildings are first-class objects** with transaction history, leases, ownership, and broker coverage
+- **Relationships are cadence-driven** — the Outreach Board surfaces who's overdue, who's due soon, and who's been recently contacted
+- **Pipeline is weighted** — active deals at 100%, pursuits at probability-adjusted value, rolled up by quarter and year
+- **Email logs itself** — DealBot captures communications via CC, runs them through OpenAI, and links them to the right buildings, contacts, and deals automatically
 
-DealStack focuses on the realities of investment sales workflows:
+## What's Inside
 
-Buildings are first-class objects, not just accounts
+| Module | Description |
+|---|---|
+| **Buildings** | 495 Class A / Trophy office buildings across 8 Florida markets with full transaction and lease history |
+| **Contacts & Companies** | 701 companies, 184 contacts, with cadence tracking and deal history |
+| **Outreach Board** | Kanban view of your contact outreach — overdue, due soon, recently contacted |
+| **Deals** | Active investment sales pipeline with multi-building support and team assignments |
+| **Pursuits** | Pre-deal tracking with probability weighting and one-click conversion to deals |
+| **Weighted Pipeline** | Revenue forecast combining deals + probability-weighted pursuits across Q1–Q4 |
+| **Activities** | 46 logged interactions (calls, meetings, emails, site visits) linked across contacts, buildings, and deals |
+| **DealBot** | AI-powered email capture via SendGrid + OpenAI — CC the bot, it handles the rest |
+| **Tasks** | Internal to-do tracking, distinct from client-facing activities |
+| **Goals** | Pipeline targets, closed deals, and meeting counts tracked per broker |
+| **Bulk Upload** | CSV/Excel import with fuzzy duplicate detection and merge conflict resolution |
 
-Contacts and companies are directly tied to properties and transactions
+## Tech Stack
 
-Relationship outreach is cadence-driven and visually managed
+| Layer | Stack |
+|---|---|
+| Frontend | React 18, TypeScript, Vite, shadcn/ui, Tailwind CSS, TanStack Query |
+| Backend | Node.js, Express.js, TypeScript |
+| Database | PostgreSQL (Neon serverless), Drizzle ORM |
+| Auth | Passport.js, bcrypt, PostgreSQL-backed sessions |
+| AI / Email | OpenAI API (gpt-4o-mini), SendGrid Inbound Parse |
 
-Deals and pre-deal pursuits roll up into a single weighted pipeline
+## Scale
 
-Institutional knowledge stays centralized instead of living in spreadsheets and inboxes
+- 495 buildings tracked across Miami, Fort Lauderdale, Tampa, Orlando, Jacksonville, West Palm Beach, Boca Raton, and Naples
+- 212 historical sales transactions
+- 325 leases
+- 701 companies, 184 contacts
+- 6-role permission system (Admin → Viewer)
+- Built for teams of 5–20 brokers
 
-The system is optimized for small, high-leverage brokerage teams rather than large, horizontal CRM deployments.
+## Highlight: DealBot
 
-#Core Modules
+The most distinctive feature. Brokers CC `dealbot@dealstack-crm.com` on any email or calendar invite. SendGrid forwards it to a webhook, OpenAI extracts entities from the body, and the system fuzzy-matches them against buildings, companies, contacts, and deals — then creates a structured activity record automatically. Handles Microsoft Teams, Google Calendar, and Outlook meeting formats. Deduplicates threads via Message-ID tracking.
 
-##Buildings
-Centralized database of Class A / Trophy office buildings with ownership, transaction history, leases, and broker coverage.
+## License
 
-##Contacts & Companies
-Relationship-centric contact management with company hierarchies, aliases, outreach cadences, and deal history.
-
-##Outreach Board
-Kanban-style workflow that surfaces which contacts are overdue, due soon, or recently contacted based on assigned cadence rules.
-
-##Deals
-Active investment sales opportunities with stages, values, team assignments, and building relationships.
-
-##Pursuits
-Pre-deal opportunities tracked with probability weighting and conversion into deals when won.
-
-##Weighted Pipeline
-Forward-looking revenue forecast that combines active deals and probability-weighted pursuits across multiple years.
-
-##Activities
-External interactions (calls, meetings, emails, site visits) linked across contacts, buildings, and deals.
-
-##Tasks
-Internal to-do tracking for brokers and analysts, intentionally separated from client-facing activities.
-
-##Email Activity Capture
-Optional email and calendar ingestion workflow that converts communications into structured activity records.
-
-##Preview Assets
-
-This repository includes preview materials to help understand the system without running it:
-
-UI screenshots of key modules
-
-Example pipeline and outreach views
-
-Data model and relationship diagrams
-
-Preview assets are illustrative and may not reflect live or production data.
-
-See the /docs or /previews directory for visuals and walkthroughs.
-
-##Technical Overview
-
-High-level architecture highlights:
-
-React + TypeScript frontend
-
-Node.js / Express backend
-
-PostgreSQL data model with strong relational integrity
-
-Role-based access and team-aware visibility
-
-AI-assisted parsing for activity enrichment
-
-Implementation details are intentionally omitted from this README.
-
-##Design Philosophy
-
-Model real estate workflows directly
-
-Treat buildings and relationships as core primitives
-
-Minimize manual data entry
-
-Prefer clarity over excessive configuration
-
-Keep the interface fast, focused, and broker-friendly
-
-DealStack is opinionated by design.
-
-##Status
-
-DealStack is an active, evolving project originally built around a real brokerage use case.
-
-It is not intended to be a generic CRM framework or a Salesforce replacement.
-The focus is depth in a specific domain rather than breadth across industries.
-
-##License
-
-TBD.
-This repository is currently shared for documentation, demonstration, and discussion purposes.
+MIT © Ben Landes
